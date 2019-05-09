@@ -10,7 +10,12 @@ public class Boxes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        turret = GameObject.Find("Sphere");
+        turret = GameObject.Find("Turret");
         player = turret.GetComponent<PlayerController>();
+    }
+
+    private void OnMouseDown()
+    {
+        player.target = gameObject;
     }
 }
