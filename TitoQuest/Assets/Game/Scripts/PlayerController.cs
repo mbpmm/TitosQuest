@@ -10,7 +10,10 @@ public class PlayerController : MonoBehaviour
     public float rotateSpeed;
     public float cannonRotateSpeed;
     public GameObject target;
+    public GameObject missileEmitter;
+    public GameObject missile;
     private bool click;
+    private bool isShooting;
     // Update is called once per frame
     void Update()
     {
@@ -19,7 +22,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             click = true;
-            
+            isShooting = true;
         }
         if (click)
         {
@@ -34,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
             if (layerHitted=="Boxes")
             {
+                ShootMissile();
                 Debug.DrawRay(cannon.transform.position, cannon.transform.forward * hit.distance, Color.red);
                 Debug.Log("Can Hit");
             }
@@ -46,12 +50,33 @@ public class PlayerController : MonoBehaviour
 
     public void LookTarget()
     {
-        Vector3 lookDirCannon = target.transform.position - transform.position;
-        Vector3 lookDir = target.transform.position - transform.position;
-        lookDir.y = 0;  
-        Quaternion q = Quaternion.LookRotation(lookDir);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, q, rotateSpeed * Time.deltaTime);
-        Quaternion q2 = Quaternion.LookRotation(lookDirCannon);
-        cannon.transform.rotation = Quaternion.RotateTowards(cannon.transform.rotation, q2, cannonRotateSpeed * Time.deltaTime);
+        if (!target)
+        {
+            Vector3 lookIdle = Vector3.zero;
+            Quaternion q3 = Quaternion.LookRotation(lookIdle);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, q3, rotateSpeed * Time.deltaTime);
+        }
+        else
+        {
+            Vector3 lookDirCannon = target.transform.position - transform.position;
+            Vector3 lookDir = target.transform.position - transform.position;
+            lookDir.y = 0;
+            Quaternion q = Quaternion.LookRotation(lookDir);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, q, rotateSpeed * Time.deltaTime);
+            Quaternion q2 = Quaternion.LookRotation(lookDirCannon);
+            cannon.transform.rotation = Quaternion.RotateTowards(cannon.transform.rotation, q2, cannonRotateSpeed * Time.deltaTime);
+        }
+        
+    }
+
+    public void ShootMissile()
+    {
+        if (isShooting)
+        {
+            GameObject auxBullet;
+            auxBullet = Instantiate(missile, missileEmitter.transform.position, missileEmitter.transform.rotation);
+            isShooting = false;
+        }
+        
     }
 }
