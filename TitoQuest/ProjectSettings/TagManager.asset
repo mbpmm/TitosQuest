@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Fire
   - Box
+  - Gun
+  - Missile
   layers:
   - Default
   - TransparentFX

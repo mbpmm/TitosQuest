@@ -1,0 +1,4 @@
+-"3 crate textures (w/ bump & normal)", Luke.RUSTLTD, https://opengameart.org/content/3-crate-textures-w-bump-normal.
+-"Handgun", Alex_oberski, https://sketchfab.com/3d-models/handgun-e6bbbc20ec904168bf7beca6cb698b93
+-"HK MP5A3 Game ready", tnnv, https://sketchfab.com/3d-models/53-game-ready-25c2dac7d675420a9511e040f2a8e462
+-"AK-47", Melvin Stubbe, https://sketchfab.com/3d-models/ak-47-46b2d45e084a49a49ab3d3bdeeb5fed2

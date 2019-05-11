@@ -6,6 +6,7 @@ public class Missile : MonoBehaviour
 {
     public float missileSpeed;
     public float missileRotSpeed;
+    public float missileLife;
     private GameObject turret;
     private PlayerController player;
 
@@ -19,6 +20,7 @@ public class Missile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        missileLife += Time.deltaTime;
         if (!player.target)
         {
             transform.position += transform.forward * Time.deltaTime * missileSpeed;
@@ -30,6 +32,11 @@ public class Missile : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, q, missileRotSpeed * Time.deltaTime);
 
             transform.position += transform.forward * Time.deltaTime * missileSpeed;
+        }
+
+        if (missileLife>=5f)
+        {
+            Destroy(gameObject);
         }
         
     }
