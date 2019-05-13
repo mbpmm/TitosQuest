@@ -8,7 +8,7 @@ public class BoxesManager : MonoBehaviour
     public int cantBoxes;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         for (int i = 0; i < cantBoxes; i++)
         {

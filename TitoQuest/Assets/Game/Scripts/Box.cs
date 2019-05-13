@@ -8,15 +8,16 @@ public class Box : MonoBehaviour
     {
         AK=1,DE,MP5
     }
+    public delegate void BoxDestroyedAction(bool chocoMisil);
+    public static BoxDestroyedAction OnBoxDestroyed;
     public GameObject gun1;
     public GameObject gun2;
     public GameObject gun3;
+    private bool chocoMisil;
     private Gun rnd;
     private float pointsGiven;
     private GameObject turret;
     private PlayerController player;
-    private GameObject gameManager;
-    private GameManager manager;
     private GameObject boxes;
     private BoxesManager boxesManager;
 
@@ -26,8 +27,6 @@ public class Box : MonoBehaviour
         pointsGiven = 100f;
         turret = GameObject.Find("Turret");
         player = turret.GetComponent<PlayerController>();
-        gameManager = GameObject.Find("GameManager");
-        manager = gameManager.GetComponent<GameManager>();
         boxes = GameObject.Find("BoxesManager");
         boxesManager = boxes.GetComponent<BoxesManager>();
     }
@@ -57,14 +56,15 @@ public class Box : MonoBehaviour
             {
                 auxGun = Instantiate(gun3, transform.position, transform.rotation);
             }
-            manager.points += pointsGiven;
-            manager.boxesDestroyed++;
+            if (OnBoxDestroyed != null)
+                OnBoxDestroyed(true);
             boxesManager.cantBoxes--;
             Destroy(gameObject);
         }
         else 
         {
-            manager.points -= pointsGiven;
+            if (OnBoxDestroyed != null)
+                OnBoxDestroyed(false);
             boxesManager.cantBoxes--;
             Destroy(gameObject);
         }

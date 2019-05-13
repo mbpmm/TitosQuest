@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         boxesManager = boxes.GetComponent<BoxesManager>();
     }
 
+    private void Start()
+    {
+
+        Box.OnBoxDestroyed += AddScore;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -39,6 +44,18 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         SceneManager.LoadScene("FinalScene");
     }
 
-
+    void AddScore(bool chocoMisil)
+    {
+        if (chocoMisil)
+        {
+            points += 100;
+            boxesDestroyed++;
+        }
+        else
+        {
+            points -= 100;
+        }
+        
+    }
 
 }
